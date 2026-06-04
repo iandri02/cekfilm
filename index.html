@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CekFilm — Review & Rekomendasi Film Indonesia</title>
+<meta name="description" content="Review film terpercaya, rekomendasi genre, dan panduan platform streaming terbaik untuk penonton Indonesia.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #181818;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0ece4;
+    --sub: #888070;
+    --muted: #4a4540;
+    --gold: #c9a84c;
+    --gold-dim: rgba(201,168,76,0.15);
+    --red: #e5341a;
+    --blue: #2060ff;
+    --green: #18a058;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+  .logo em { color: var(--gold); font-style: italic; }
+  .nav-links {
+    display: flex; align-items: center; gap: 32px;
+  }
+  .nav-links a {
+    color: var(--sub);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-search {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color .2s;
+  }
+  .nav-search:hover { border-color: var(--border2); }
+
+  /* HERO */
+  .hero {
+    padding-top: 64px;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    padding: 80px 48px 80px 48px;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .eyebrow-line {
+    width: 32px; height: 1px;
+    background: var(--gold);
+  }
+  .eyebrow-text {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(52px, 5.5vw, 80px);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-desc {
+    font-size: 16px; color: var(--sub);
+    font-weight: 300; line-height: 1.7;
+    max-width: 420px; margin-bottom: 40px;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px; font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: all .2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-gold {
+    background: var(--gold);
+    color: #0a0800;
+  }
+  .btn-gold:hover { background: #dbb85a; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--sub);
+    border: 1px solid var(--border2);
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
+
+  .hero-right {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-film-mosaic {
+    position: absolute; inset: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 3px;
+    opacity: 0.6;
+    transform: skewY(-2deg) scale(1.1);
+    transform-origin: center;
+  }
+  .mosaic-cell {
+    border-radius: 2px;
+    transition: opacity .3s;
+  }
+  .mosaic-cell:hover { opacity: 0.8; }
+  .mc1 { background: linear-gradient(160deg, #1e1a2e 0%, #0d0a18 100%); }
+  .mc2 { background: linear-gradient(160deg, #2e1a1a 0%, #180a0a 100%); }
+  .mc3 { background: linear-gradient(160deg, #1a2e1a 0%, #0a180a 100%); }
+  .mc4 { background: linear-gradient(160deg, #2e261a 0%, #18140a 100%); }
+  .mc5 { background: linear-gradient(160deg, #1a262e 0%, #0a1318 100%); }
+  .mc6 { background: linear-gradient(160deg, #2e1a26 0%, #18080d 100%); }
+  .mc7 { background: linear-gradient(160deg, #261e2e 0%, #130f18 100%); }
+  .mc8 { background: linear-gradient(160deg, #2e2a1a 0%, #18150a 100%); }
+  .mc9 { background: linear-gradient(160deg, #1a2a2e 0%, #0a1518 100%); }
+  .mc10 { background: linear-gradient(160deg, #2e1e1a 0%, #180f0a 100%); }
+  .mc11 { background: linear-gradient(160deg, #1e2e1a 0%, #0f180a 100%); }
+  .mc12 { background: linear-gradient(160deg, #2a1a2e 0%, #150a18 100%); }
+  .hero-right-fade {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, var(--bg) 0%, transparent 40%),
+                linear-gradient(to top, var(--bg) 0%, transparent 30%);
+    z-index: 1;
+  }
+
+  /* PLATFORM STRIP */
+  .platform-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 48px;
+    display: flex; align-items: center; gap: 0;
+    overflow-x: auto;
+  }
+  .platform-strip::-webkit-scrollbar { display: none; }
+  .strip-label {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 32px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .platform-pills { display: flex; gap: 10px; }
+  .platform-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 13px; font-weight: 500;
+    color: var(--sub);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all .2s;
+    flex-shrink: 0;
+  }
+  .platform-pill:hover { border-color: var(--border2); color: var(--text); }
+  .platform-pill .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-red { background: var(--red); }
+  .dot-blue { background: var(--blue); }
+  .dot-green { background: var(--green); }
+  .dot-orange { background: #ff6b00; }
+
+  /* MAIN CONTENT */
+  .main { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+
+  /* SECTION HEADER */
+  .sec-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sec-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px; letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .sec-title em { font-style: italic; color: var(--gold); }
+  .sec-link {
+    font-size: 12px; font-weight: 500;
+    color: var(--sub); text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color .2s;
+  }
+  .sec-link:hover { color: var(--text); }
+
+  /* REVIEW GRID */
+  .reviews-section { padding: 72px 0 56px; }
+  .review-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+  }
+  .review-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    transition: border-color .25s, transform .25s;
+    position: relative;
+  }
+  .review-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .review-card.featured {
+    grid-row: 1 / 3;
+    display: flex; flex-direction: column;
+  }
+  .card-poster {
+    width: 100%; aspect-ratio: 16/10;
+    position: relative; overflow: hidden;
+    flex-shrink: 0;
+  }
+  .review-card.featured .card-poster { aspect-ratio: 3/4; flex: 1; }
+  .poster-bg {
+    position: absolute; inset: 0;
+    transition: transform .4s;
+  }
+  .review-card:hover .poster-bg { transform: scale(1.03); }
+  .poster-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(17,17,17,1) 0%, rgba(17,17,17,0.3) 50%, transparent 100%);
+  }
+  .poster-rating {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 12px; font-weight: 600;
+    color: var(--gold);
+    display: flex; align-items: center; gap: 4px;
+  }
+  .poster-platform {
+    position: absolute; top: 12px; left: 12px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .pp-red { background: var(--red); color: #fff; }
+  .pp-blue { background: var(--blue); color: #fff; }
+  .pp-green { background: var(--green); color: #fff; }
+  .card-body { padding: 16px 18px 18px; }
+  .review-card.featured .card-body { padding: 20px 22px 22px; }
+  .card-genre {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px; line-height: 1.15;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .review-card.featured .card-title { font-size: 28px; letter-spacing: -0.5px; }
+  .card-excerpt {
+    font-size: 13px; color: var(--sub);
+    line-height: 1.55; font-weight: 300;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .review-card.featured .card-excerpt { -webkit-line-clamp: 3; }
+  .card-meta {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 11px; color: var(--muted);
+  }
+  .card-meta span { display: flex; align-items: center; gap: 4px; }
+  .p1 { background: linear-gradient(135deg, #1c1830 0%, #0e0c1a 100%); }
+  .p2 { background: linear-gradient(135deg, #301818 0%, #1a0c0c 100%); }
+  .p3 { background: linear-gradient(135deg, #18301e 0%, #0c1a10 100%); }
+  .p4 { background: linear-gradient(135deg, #30281a 0%, #1a160c 100%); }
+  .p5 { background: linear-gradient(135deg, #181e30 0%, #0c1018 100%); }
+
+  /* PLATFORM SECTION */
+  .platform-section { padding: 20px 0 72px; }
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .platform-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 26px;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .25s, transform .2s;
+    background: var(--surface);
+  }
+  .platform-card:hover { transform: translateY(-3px); }
+  .platform-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    transition: opacity .25s;
+    opacity: 0;
+  }
+  .platform-card:hover::before { opacity: 1; }
+  .pc-netflix::before { background: var(--red); }
+  .pc-vidio::before { background: var(--blue); }
+  .pc-wetv::before { background: var(--green); }
+  .pc-netflix:hover { border-color: rgba(229,52,26,0.25); }
+  .pc-vidio:hover { border-color: rgba(32,96,255,0.25); }
+  .pc-wetv:hover { border-color: rgba(24,160,88,0.25); }
+  .pc-icon {
+    width: 48px; height: 48px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+  .ic-red { background: rgba(229,52,26,0.12); }
+  .ic-blue { background: rgba(32,96,255,0.12); }
+  .ic-green { background: rgba(24,160,88,0.12); }
+  .pc-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px; letter-spacing: -0.3px;
+    margin-bottom: 6px; color: var(--text);
+  }
+  .pc-desc {
+    font-size: 13px; color: var(--sub);
+    line-height: 1.5; font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .pc-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.3px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: opacity .2s;
+  }
+  .pc-cta:hover { opacity: 0.8; }
+  .cta-red { background: rgba(229,52,26,0.12); color: #ff7060; border: 1px solid rgba(229,52,26,0.2); }
+  .cta-blue { background: rgba(32,96,255,0.12); color: #6090ff; border: 1px solid rgba(32,96,255,0.2); }
+  .cta-green { background: rgba(24,160,88,0.12); color: #50c870; border: 1px solid rgba(24,160,88,0.2); }
+  .pc-count {
+    position: absolute; top: 24px; right: 24px;
+    font-size: 11px; color: var(--muted);
+  }
+
+  /* GENRE SECTION */
+  .genre-section { padding: 0 0 72px; }
+  .genre-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
+  .genre-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .2s;
+    display: block;
+  }
+  .genre-card:hover {
+    border-color: var(--gold-dim);
+    background: rgba(201,168,76,0.04);
+    transform: translateY(-2px);
+  }
+  .genre-emoji { font-size: 24px; display: block; margin-bottom: 8px; }
+  .genre-name { font-size: 12px; font-weight: 500; color: var(--sub); }
+  .genre-card:hover .genre-name { color: var(--text); }
+
+  /* NEWSLETTER / CTA BANNER */
+  .cta-banner {
+    margin: 0 0 72px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 48px;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-banner-left { flex: 1; }
+  .cta-banner-eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .cta-banner-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px; letter-spacing: -0.5px;
+    line-height: 1.15; margin-bottom: 8px;
+  }
+  .cta-banner-sub {
+    font-size: 14px; color: var(--sub);
+    font-weight: 300; line-height: 1.5;
+  }
+  .cta-banner-right { flex-shrink: 0; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .footer-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px; color: var(--text);
+    text-decoration: none;
+  }
+  .footer-logo em { color: var(--gold); font-style: italic; }
+  .footer-links {
+    display: flex; gap: 24px; flex-wrap: wrap;
+  }
+  .footer-links a {
+    font-size: 12px; color: var(--muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--sub); }
+  .footer-copy {
+    font-size: 11px; color: var(--muted);
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 8px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    opacity: 0;
+    animation: fadeUp .7s forwards;
+  }
+  .hero-eyebrow { animation-delay: .1s; }
+  .hero h1 { animation-delay: .2s; }
+  .hero-desc { animation-delay: .3s; }
+  .hero-actions { animation-delay: .4s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 100px 20px 48px; }
+    .hero-right { display: none; }
+    .platform-strip { padding: 16px 20px; }
+    .main { padding: 0 20px; }
+    .review-grid { grid-template-columns: 1fr 1fr; }
+    .review-card.featured { grid-row: auto; grid-column: 1 / -1; }
+    .platform-grid { grid-template-columns: 1fr; }
+    .genre-grid { grid-template-columns: repeat(3, 1fr); }
+    .cta-banner { flex-direction: column; padding: 32px 24px; }
+    footer { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">Cek<em>Film</em></a>
+  <div class="nav-links">
+    <a href="/review">Review</a>
+    <a href="/genre">Genre</a>
+    <a href="/netflix">Netflix</a>
+    <a href="/vidio">Vidio</a>
+    <div class="nav-search">🔍 Cari film...</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Review · Rekomendasi · Streaming</span>
+    </div>
+    <h1>Temukan film<br><em>yang pas</em><br>untukmu.</h1>
+    <p class="hero-desc">Review jujur, rekomendasi berdasarkan mood, dan panduan platform streaming — semua untuk penonton Indonesia.</p>
+    <div class="hero-actions">
+      <a href="/review" class="btn btn-gold">Lihat Review Terbaru</a>
+      <a href="#platform" class="btn btn-ghost">Cari di Platform →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-film-mosaic">
+      <div class="mosaic-cell mc1"></div>
+      <div class="mosaic-cell mc2"></div>
+      <div class="mosaic-cell mc3"></div>
+      <div class="mosaic-cell mc4"></div>
+      <div class="mosaic-cell mc5"></div>
+      <div class="mosaic-cell mc6"></div>
+      <div class="mosaic-cell mc7"></div>
+      <div class="mosaic-cell mc8"></div>
+      <div class="mosaic-cell mc9"></div>
+      <div class="mosaic-cell mc10"></div>
+      <div class="mosaic-cell mc11"></div>
+      <div class="mosaic-cell mc12"></div>
+    </div>
+    <div class="hero-right-fade"></div>
+  </div>
+</div>
+
+<!-- PLATFORM STRIP -->
+<div class="platform-strip">
+  <span class="strip-label">Ada di mana?</span>
+  <div class="platform-pills">
+    <a href="/netflix" class="platform-pill"><span class="dot dot-red"></span>Netflix</a>
+    <a href="/vidio" class="platform-pill"><span class="dot dot-blue"></span>Vidio</a>
+    <a href="/wetv" class="platform-pill"><span class="dot dot-green"></span>WeTV</a>
+    <a href="/disney" class="platform-pill"><span class="dot" style="background:#1a6fff"></span>Disney+</a>
+    <a href="/genre/action" class="platform-pill">⚡ Action</a>
+    <a href="/genre/horror" class="platform-pill">👻 Horor</a>
+    <a href="/genre/drama" class="platform-pill">🎭 Drama</a>
+    <a href="/genre/komedi" class="platform-pill">😄 Komedi</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- REVIEW TERBARU -->
+  <section class="reviews-section">
+    <div class="sec-header">
+      <h2 class="sec-title">Review <em>terbaru</em></h2>
+      <a href="/review" class="sec-link">Semua review →</a>
+    </div>
+    <div class="review-grid">
+
+      <!-- Featured card -->
+      <a href="/review/film-1" class="review-card featured">
+        <div class="card-poster">
+          <div class="poster-bg p1"></div>
+          <div class="poster-overlay"></div>
+          <div class="poster-rating">★ 8.7</div>
+          <div class="poster-platform pp-red">Netflix</div>
+        </div>
+        <div class="card-body">
+          <div class="card-genre">Action · Thriller</div>
+          <div class="card-title">Judul Film Unggulan Kamu di Sini</div>
+          <div class="card-excerpt">Isi dengan sinopsis singkat dan hook review yang menarik. Dua sampai tiga kalimat yang bikin orang penasaran buat klik dan baca selengkapnya.</div>
+          <div class="card-meta">
+            <span>📅 Hari ini</span>
+            <span>⏱ 5 menit baca</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Small cards -->
+      <a href="/review/film-2" class="review-card">
+        <div class="card-poster">
+          <div class="poster-bg p2"></div>
+          <div class="poster-overlay"></div>
+          <div class="poster-rating">★ 7.9</div>
+          <div class="poster-platform pp-blue">Vidio</div>
+        </div>
+        <div class="card-body">
+          <div class="card-genre">Drama · Romance</div>
+          <div class="card-title">Film Kedua di Sini</div>
+          <div class="card-excerpt">Hook singkat yang menarik untuk film kedua.</div>
+          <div class="card-meta"><span>📅 Kemarin</span></div>
+        </div>
+      </a>
+
+      <a href="/review/film-3" class="review-card">
+        <div class="card-poster">
+          <div class="poster-bg p3"></div>
+          <div class="poster-overlay"></div>
+          <div class="poster-rating">★ 8.2</div>
+          <div class="poster-platform pp-green">WeTV</div>
+        </div>
+        <div class="card-body">
+          <div class="card-genre">Horor · Mystery</div>
+          <div class="card-title">Film Ketiga di Sini</div>
+          <div class="card-excerpt">Hook singkat untuk film ketiga.</div>
+          <div class="card-meta"><span>📅 2 hari lalu</span></div>
+        </div>
+      </a>
+
+      <a href="/review/film-4" class="review-card">
+        <div class="card-poster">
+          <div class="poster-bg p4"></div>
+          <div class="poster-overlay"></div>
+          <div class="poster-rating">★ 9.0</div>
+          <div class="poster-platform pp-red">Netflix</div>
+        </div>
+        <div class="card-body">
+          <div class="card-genre">Dokumenter</div>
+          <div class="card-title">Film Keempat di Sini</div>
+          <div class="card-excerpt">Hook singkat untuk film keempat.</div>
+          <div class="card-meta"><span>📅 3 hari lalu</span></div>
+        </div>
+      </a>
+
+      <a href="/review/film-5" class="review-card">
+        <div class="card-poster">
+          <div class="poster-bg p5"></div>
+          <div class="poster-overlay"></div>
+          <div class="poster-rating">★ 7.5</div>
+          <div class="poster-platform pp-blue">Vidio</div>
+        </div>
+        <div class="card-body">
+          <div class="card-genre">Komedi</div>
+          <div class="card-title">Film Kelima di Sini</div>
+          <div class="card-excerpt">Hook singkat untuk film kelima.</div>
+          <div class="card-meta"><span>📅 Minggu lalu</span></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- PLATFORM SECTION -->
+  <section class="platform-section" id="platform">
+    <div class="sec-header">
+      <h2 class="sec-title">Nonton di <em>mana?</em></h2>
+      <a href="#" class="sec-link">Semua platform →</a>
+    </div>
+    <div class="platform-grid">
+      <a href="/netflix" class="platform-card pc-netflix">
+        <div class="pc-count">17.000+ judul</div>
+        <div class="pc-icon ic-red">🎬</div>
+        <div class="pc-name">Netflix</div>
+        <div class="pc-desc">Film & series internasional terlengkap. Original eksklusif, 4K, nonton offline. Coba gratis 30 hari.</div>
+        <span class="pc-cta cta-red">Coba Gratis →</span>
+      </a>
+      <a href="/vidio" class="platform-card pc-vidio">
+        <div class="pc-count">100rb+ jam konten</div>
+        <div class="pc-icon ic-blue">📺</div>
+        <div class="pc-name">Vidio</div>
+        <div class="pc-desc">Konten lokal terlengkap. Sinetron, film Indonesia, live sports Liga 1 & Liga Inggris. Tanpa iklan di premium.</div>
+        <span class="pc-cta cta-blue">Upgrade Premium →</span>
+      </a>
+      <a href="/wetv" class="platform-card pc-wetv">
+        <div class="pc-count">Series Asia terlengkap</div>
+        <div class="pc-icon ic-green">🌏</div>
+        <div class="pc-name">WeTV</div>
+        <div class="pc-desc">Drama Korea, China, Thailand terlengkap. Sub Indonesia tersedia. Konten eksklusif yang tidak ada di platform lain.</div>
+        <span class="pc-cta cta-green">Lihat Konten →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- GENRE SECTION -->
+  <section class="genre-section">
+    <div class="sec-header">
+      <h2 class="sec-title">Cari <em>berdasarkan genre</em></h2>
+      <a href="/genre" class="sec-link">Semua genre →</a>
+    </div>
+    <div class="genre-grid">
+      <a href="/genre/action" class="genre-card">
+        <span class="genre-emoji">⚡</span>
+        <span class="genre-name">Action</span>
+      </a>
+      <a href="/genre/drama" class="genre-card">
+        <span class="genre-emoji">🎭</span>
+        <span class="genre-name">Drama</span>
+      </a>
+      <a href="/genre/horror" class="genre-card">
+        <span class="genre-emoji">👻</span>
+        <span class="genre-name">Horor</span>
+      </a>
+      <a href="/genre/komedi" class="genre-card">
+        <span class="genre-emoji">😄</span>
+        <span class="genre-name">Komedi</span>
+      </a>
+      <a href="/genre/romance" class="genre-card">
+        <span class="genre-emoji">💕</span>
+        <span class="genre-name">Romance</span>
+      </a>
+      <a href="/genre/sci-fi" class="genre-card">
+        <span class="genre-emoji">🚀</span>
+        <span class="genre-name">Sci-Fi</span>
+      </a>
+      <a href="/genre/animasi" class="genre-card">
+        <span class="genre-emoji">🎨</span>
+        <span class="genre-name">Animasi</span>
+      </a>
+      <a href="/genre/dokumenter" class="genre-card">
+        <span class="genre-emoji">🎙️</span>
+        <span class="genre-name">Dokumenter</span>
+      </a>
+      <a href="/genre/thriller" class="genre-card">
+        <span class="genre-emoji">🔪</span>
+        <span class="genre-name">Thriller</span>
+      </a>
+      <a href="/genre/keluarga" class="genre-card">
+        <span class="genre-emoji">👨‍👩‍👧</span>
+        <span class="genre-name">Keluarga</span>
+      </a>
+      <a href="/genre/korea" class="genre-card">
+        <span class="genre-emoji">🇰🇷</span>
+        <span class="genre-name">Drama Korea</span>
+      </a>
+      <a href="/genre/indonesia" class="genre-card">
+        <span class="genre-emoji">🇮🇩</span>
+        <span class="genre-name">Film Indo</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="cta-banner-left">
+      <div class="cta-banner-eyebrow">✦ Jangan ketinggalan</div>
+      <div class="cta-banner-title">Film bagus baru<br>setiap minggu.</div>
+      <div class="cta-banner-sub">Review terbaru, rekomendasi kurator, dan promo streaming langsung ke kamu.</div>
+    </div>
+    <div class="cta-banner-right">
+      <a href="#" class="btn btn-gold" style="font-size:14px;padding:14px 32px">Mulai Nonton Sekarang</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/" class="footer-logo">Cek<em>Film</em></a>
+  <div class="footer-links">
+    <a href="/review">Review</a>
+    <a href="/genre">Genre</a>
+    <a href="/netflix">Netflix</a>
+    <a href="/vidio">Vidio</a>
+    <a href="/wetv">WeTV</a>
+    <a href="/tentang">Tentang</a>
+  </div>
+  <div class="footer-copy">
+    <span>© 2025 CekFilm.live — Review & Rekomendasi Film Indonesia</span>
+    <span><a href="/disclaimer">Disclaimer Afiliasi</a> · <a href="/privasi">Kebijakan Privasi</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

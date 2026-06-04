@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nonton Ribuan Film Favorit — Gratis 30 Hari</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E50914;
+    --red-dark: #b00710;
+    --black: #0a0a0a;
+    --dark: #141414;
+    --card: #1a1a1a;
+    --muted: #888;
+    --text: #f0f0f0;
+    --sub: #aaa;
+    --border: rgba(255,255,255,0.08);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+  .nav-logo span { color: var(--red); }
+  nav a {
+    color: var(--sub);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color .2s;
+  }
+  nav a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--red);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--red-dark) !important; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 40px 60px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(10,10,10,0.97) 40%, rgba(10,10,10,0.5) 100%),
+      linear-gradient(to top, rgba(10,10,10,1) 0%, transparent 50%);
+    z-index: 1;
+  }
+  .hero-film-grid {
+    position: absolute; right: -20px; top: 0; bottom: 0;
+    width: 55%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 6px;
+    opacity: 0.35;
+    padding: 20px 0;
+    z-index: 0;
+  }
+  .hero-film-grid div {
+    border-radius: 4px;
+    background: var(--card);
+    overflow: hidden;
+  }
+  .hero-film-grid div:nth-child(1) { background: #1e3a5f; }
+  .hero-film-grid div:nth-child(2) { background: #3d1a1a; }
+  .hero-film-grid div:nth-child(3) { background: #1a3d1a; }
+  .hero-film-grid div:nth-child(4) { background: #3d3018; }
+  .hero-film-grid div:nth-child(5) { background: #2a1a3d; }
+  .hero-film-grid div:nth-child(6) { background: #1a2a3d; }
+  .hero-film-grid div:nth-child(7) { background: #3d2a1a; }
+  .hero-film-grid div:nth-child(8) { background: #1a3d2a; }
+  .hero-film-grid div:nth-child(9) { background: #3d1a2a; }
+  .hero-film-grid div:nth-child(10) { background: #2a3d1a; }
+  .hero-film-grid div:nth-child(11) { background: #1a1a3d; }
+  .hero-film-grid div:nth-child(12) { background: #3d2a2a; }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 560px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(229,9,20,0.15);
+    border: 1px solid rgba(229,9,20,0.4);
+    color: #ff6b6b;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8vw, 88px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--red); }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--sub);
+    font-weight: 300;
+    margin-bottom: 36px;
+    max-width: 420px;
+    line-height: 1.5;
+  }
+  .hero-cta-wrap { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 36px;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: background .2s, transform .15s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+  .hero-micro {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hero-micro::before { content: '✓'; color: #4caf50; font-size: 13px; }
+  .hero-stats {
+    display: flex; gap: 40px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* SECTION WRAPPER */
+  section { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 54px);
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--sub);
+    font-weight: 300;
+    max-width: 500px;
+    margin-bottom: 48px;
+  }
+
+  /* BENEFITS */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .benefit-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 24px;
+    transition: border-color .2s;
+  }
+  .benefit-card:hover { border-color: rgba(229,9,20,0.3); }
+  .benefit-icon {
+    width: 44px; height: 44px;
+    background: rgba(229,9,20,0.12);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .benefit-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .benefit-desc { font-size: 13px; color: var(--sub); line-height: 1.5; }
+
+  /* FILM HIGHLIGHT */
+  .film-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .film-card {
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--card);
+    aspect-ratio: 2/3;
+    position: relative;
+    cursor: pointer;
+    transition: transform .2s;
+  }
+  .film-card:hover { transform: scale(1.03); z-index: 1; }
+  .film-card-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end;
+  }
+  .film-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
+  }
+  .film-card-info {
+    position: relative; z-index: 1;
+    padding: 10px;
+    width: 100%;
+  }
+  .film-card-title { font-size: 12px; font-weight: 600; line-height: 1.2; }
+  .film-card-genre {
+    font-size: 10px;
+    color: var(--sub);
+    margin-top: 3px;
+  }
+  .film-card-badge {
+    position: absolute;
+    top: 8px; left: 8px;
+    background: var(--red);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .fc1 { background: linear-gradient(135deg, #1a3a6e 0%, #0d1f3c 100%); }
+  .fc2 { background: linear-gradient(135deg, #3d0a0a 0%, #1a0505 100%); }
+  .fc3 { background: linear-gradient(135deg, #1a4a1a 0%, #0a200a 100%); }
+  .fc4 { background: linear-gradient(135deg, #4a3010 0%, #251808 100%); }
+  .fc5 { background: linear-gradient(135deg, #2a0a3d 0%, #150520 100%); }
+  .fc6 { background: linear-gradient(135deg, #0a2a3d 0%, #051520 100%); }
+  .film-note {
+    text-align: center;
+    font-size: 13px;
+    color: var(--sub);
+    padding: 16px;
+    background: var(--card);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 24px;
+    position: relative;
+    transition: border-color .2s;
+  }
+  .price-card.featured {
+    border-color: var(--red);
+    background: rgba(229,9,20,0.05);
+  }
+  .price-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--red);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .price-tier { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .price-period { font-size: 13px; color: var(--sub); margin-bottom: 20px; }
+  .price-features { list-style: none; }
+  .price-features li {
+    font-size: 13px;
+    color: var(--sub);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .price-features li:last-child { border-bottom: none; }
+  .price-features li::before { content: '✓'; color: #4caf50; font-size: 12px; flex-shrink: 0; }
+  .price-features li.no::before { content: '×'; color: var(--muted); }
+  .price-features li.no { opacity: 0.5; }
+
+  /* TESTIMONIALS */
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .testi-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .testi-stars { color: #ffc107; font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+  .testi-text { font-size: 14px; color: var(--sub); line-height: 1.6; margin-bottom: 16px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .av1 { background: #1a3a6e; color: #7eb8ff; }
+  .av2 { background: #1a4a1a; color: #7edd7e; }
+  .av3 { background: #3d0a0a; color: #ff8a8a; }
+  .testi-name { font-size: 13px; font-weight: 600; }
+  .testi-meta { font-size: 11px; color: var(--muted); }
+
+  /* FAQ */
+  .faq-list { max-width: 700px; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+  }
+  .faq-q {
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px;
+    user-select: none;
+  }
+  .faq-q:hover { color: var(--red); }
+  .faq-icon { font-size: 20px; color: var(--muted); flex-shrink: 0; transition: transform .2s; }
+  .faq-a {
+    font-size: 14px;
+    color: var(--sub);
+    line-height: 1.7;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease, padding .3s;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding-top: 12px; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); color: var(--red); }
+
+  /* FINAL CTA */
+  .final-cta {
+    text-align: center;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 40px;
+  }
+  .final-cta .section-title { margin-bottom: 16px; }
+  .final-cta .section-sub { margin: 0 auto 36px; }
+  .trust-badges {
+    display: flex; align-items: center; justify-content: center;
+    gap: 24px; flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .trust-badge {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .trust-badge::before { content: '🔒'; font-size: 13px; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 40px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--muted); text-decoration: underline; }
+
+  /* DIVIDER FULL WIDTH */
+  .full-divider { border: none; border-top: 1px solid var(--border); }
+
+  @media (max-width: 600px) {
+    nav { padding: 14px 20px; }
+    .hero { padding: 60px 20px 40px; }
+    section { padding: 60px 20px; }
+    .hero-stats { gap: 24px; }
+    .hero-film-grid { display: none; }
+    .hero-bg { background: linear-gradient(to bottom, rgba(10,10,10,0.9), rgba(10,10,10,1)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Film<span>Review</span></div>
+  <div style="display:flex;gap:20px;align-items:center">
+    <a href="#">Review</a>
+    <a href="#">Genre</a>
+    <a href="#" class="nav-cta">Coba Gratis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-film-grid">
+    <div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Trial Gratis 30 Hari</div>
+    <h1>Semua Film<br>Favorit<br><span>Ada di Sini</span></h1>
+    <p class="hero-sub">Ribuan film & series — dari box office hingga eksklusif original. Nonton kapan saja, di mana saja.</p>
+    <div class="hero-cta-wrap">
+      <a href="#cta" class="btn-primary">Mulai Gratis Sekarang</a>
+      <span class="hero-micro">Tanpa biaya. Batal kapan saja.</span>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">260M+</div>
+        <div class="stat-label">Pengguna aktif</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">17K+</div>
+        <div class="stat-label">Judul tersedia</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">30</div>
+        <div class="stat-label">Hari gratis</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- BENEFITS -->
+<section>
+  <div class="section-label">Kenapa Netflix?</div>
+  <h2 class="section-title">Semua yang kamu<br>butuhkan, dalam satu layar</h2>
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">🎬</div>
+      <div class="benefit-title">Konten tanpa batas</div>
+      <div class="benefit-desc">Film, series, dokumenter, anime — semua genre tersedia lengkap dan terus diperbarui.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📱</div>
+      <div class="benefit-title">Semua perangkat</div>
+      <div class="benefit-desc">Nonton di TV, laptop, HP, atau tablet. Satu akun untuk berbagai device sekaligus.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">⬇️</div>
+      <div class="benefit-title">Download & offline</div>
+      <div class="benefit-desc">Simpan episode favoritmu dan nonton saat tidak ada koneksi internet.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🌟</div>
+      <div class="benefit-title">Netflix Original</div>
+      <div class="benefit-desc">Konten eksklusif yang tidak bisa ditemukan di platform lain, diproduksi khusus.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- FILM HIGHLIGHT -->
+<section>
+  <div class="section-label">Sudah kamu baca reviewnya</div>
+  <h2 class="section-title">Film-film ini<br>ada di Netflix</h2>
+  <p class="section-sub">Semua judul yang kamu temukan di review kami tersedia langsung untuk ditonton.</p>
+  <div class="film-grid">
+    <div class="film-card fc1">
+      <div class="film-card-bg">
+        <div class="film-card-overlay"></div>
+        <div class="film-card-info">
+          <div class="film-card-title">The Last Voyage</div>
+          <div class="film-card-genre">Action · Thriller</div>
+        </div>
+      </div>
+      <div class="film-card-badge">⭐ 8.4</div>
+    </div>
+    <div class="film-card fc2">
+      <div class="film-card-bg">
+        <div class="film-card-overlay"></div>
+        <div class="film-card-info">
+          <div class="film-card-title">Dark Horizon</div>
+          <div class="film-card-genre">Horor · Mystery</div>
+        </div>
+      </div>
+      <div class="film-card-badge">⭐ 7.9</div>
+    </div>
+    <div class="film-card fc3">
+      <div class="film-card-bg">
+        <div class="film-card-overlay"></div>
+        <div class="film-card-info">
+          <div class="film-card-title">Into the Wild</div>
+          <div class="film-card-genre">Drama · Adventure</div>
+        </div>
+      </div>
+    </div>
+    <div class="film-card fc4">
+      <div class="film-card-bg">
+        <div class="film-card-overlay"></div>
+        <div class="film-card-info">
+          <div class="film-card-title">The Heist</div>
+          <div class="film-card-genre">Crime · Thriller</div>
+        </div>
+      </div>
+      <div class="film-card-badge">⭐ 8.1</div>
+    </div>
+    <div class="film-card fc5">
+      <div class="film-card-bg">
+        <div class="film-card-overlay"></div>
+        <div class="film-card-info">
+          <div class="film-card-title">Neon City</div>
+          <div class="film-card-genre">Sci-Fi · Drama</div>
+        </div>
+      </div>
+    </div>
+    <div class="film-card fc6">
+      <div class="film-card-bg">
+        <div class="film-card-overlay"></div>
+        <div class="film-card-info">
+          <div class="film-card-title">Ocean's Secret</div>
+          <div class="film-card-genre">Dokumenter</div>
+        </div>
+      </div>
+      <div class="film-card-badge">⭐ 9.0</div>
+    </div>
+  </div>
+  <div class="film-note">+ 17.000 judul lainnya menunggu untuk ditonton — ganti judul di atas dengan film yang kamu ulas</div>
+</section>
+
+<hr class="full-divider">
+
+<!-- PRICING -->
+<section>
+  <div class="section-label">Pilih paket</div>
+  <h2 class="section-title">Mulai gratis,<br>lanjut sesukamu</h2>
+  <p class="section-sub">Coba 30 hari pertama tanpa biaya. Pilih paket yang sesuai setelahnya.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Basic</div>
+      <div class="price-amount">54rb</div>
+      <div class="price-period">/ bulan setelah trial</div>
+      <ul class="price-features">
+        <li>Full HD (1080p)</li>
+        <li>1 layar sekaligus</li>
+        <li>Download tersedia</li>
+        <li class="no">4K Ultra HD</li>
+        <li class="no">Akses spatial audio</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Paling populer</div>
+      <div class="price-tier">Standard</div>
+      <div class="price-amount">86rb</div>
+      <div class="price-period">/ bulan setelah trial</div>
+      <ul class="price-features">
+        <li>Full HD (1080p)</li>
+        <li>2 layar sekaligus</li>
+        <li>Download tersedia</li>
+        <li>Spatial audio</li>
+        <li class="no">4K Ultra HD</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Premium</div>
+      <div class="price-amount">120rb</div>
+      <div class="price-period">/ bulan setelah trial</div>
+      <ul class="price-features">
+        <li>4K Ultra HD</li>
+        <li>4 layar sekaligus</li>
+        <li>Download tersedia</li>
+        <li>Spatial audio</li>
+        <li>Kualitas terbaik</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="section-label">Kata mereka</div>
+  <h2 class="section-title">Sudah ditonton<br>jutaan orang</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Awalnya coba trial dulu, eh ujung-ujungnya langsung lanjut berlangganan. Worth it banget untuk harganya."</p>
+      <div class="testi-author">
+        <div class="testi-avatar av1">AR</div>
+        <div>
+          <div class="testi-name">Andi R.</div>
+          <div class="testi-meta">Pelanggan sejak 2023</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Daftar gampang banget, langsung bisa nonton. Film yang sering dibahas di blog review ini ternyata emang seru semua."</p>
+      <div class="testi-author">
+        <div class="testi-avatar av2">DS</div>
+        <div>
+          <div class="testi-name">Dini S.</div>
+          <div class="testi-meta">Pelanggan sejak 2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★☆</div>
+      <p class="testi-text">"Sudah saya rekomendasikan ke seluruh keluarga. Kontennya banyak, bisa nonton bareng di TV dengan kualitas bagus."</p>
+      <div class="testi-author">
+        <div class="testi-avatar av3">BW</div>
+        <div>
+          <div class="testi-name">Budi W.</div>
+          <div class="testi-meta">Pelanggan sejak 2022</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- FAQ -->
+<section>
+  <div class="section-label">Pertanyaan umum</div>
+  <h2 class="section-title">Masih ada<br>yang ditanyakan?</h2>
+  <div class="faq-list" id="faqList">
+    <div class="faq-item open">
+      <div class="faq-q">Apakah trial 30 hari benar-benar gratis? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Ya, sepenuhnya gratis. Tidak ada biaya tersembunyi selama masa trial. Kamu hanya dikenakan biaya jika memilih untuk melanjutkan berlangganan setelah 30 hari.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Bisa dibatalkan kapan saja? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Tentu. Kamu bisa membatalkan kapan saja sebelum masa trial berakhir dan tidak akan dikenakan biaya apapun. Prosesnya mudah, bisa langsung dari pengaturan akun.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Apakah butuh kartu kredit untuk daftar? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Netflix meminta metode pembayaran saat pendaftaran, namun tidak akan ditagih selama masa trial. Kamu bisa menggunakan kartu debit, kartu kredit, atau metode pembayaran lokal yang tersedia.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Bisa nonton di berapa perangkat? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Tergantung paket yang dipilih — Basic: 1 layar, Standard: 2 layar, Premium: 4 layar secara bersamaan. Semua paket bisa diinstal di perangkat tidak terbatas.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Ada konten film Indonesia? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Ada! Netflix menyediakan konten original Indonesia yang berkualitas, plus subtitle Bahasa Indonesia untuk sebagian besar film internasional.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- FINAL CTA -->
+<div class="final-cta" id="cta">
+  <div class="section-label">Mulai sekarang</div>
+  <h2 class="section-title" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,72px);line-height:1.05;margin-bottom:16px">Tonton film favoritmu<br>malam ini</h2>
+  <p class="section-sub" style="margin:0 auto 36px">Daftar dalam 2 menit. Gratis 30 hari pertama.</p>
+  <a href="#" class="btn-primary" style="font-size:17px;padding:18px 48px">Coba Gratis Sekarang</a>
+  <div class="trust-badges">
+    <span class="trust-badge">Koneksi aman SSL</span>
+    <span class="trust-badge">Tanpa kontrak</span>
+    <span class="trust-badge">Batal kapan saja</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Halaman ini merupakan landing page afiliasi. Kami mendapat komisi jika kamu mendaftar melalui link di atas. <a href="#">Kebijakan privasi</a> · <a href="#">Disclaimer</a></p>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
