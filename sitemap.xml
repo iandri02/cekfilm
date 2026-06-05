@@ -25,12 +25,20 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Halaman Review (tambah setiap kali upload review baru) -->
+  <!-- Halaman Index Review -->
   <url>
     <loc>https://www.cekfilm.live/review/</loc>
     <lastmod>2025-06-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Review: The Chestnut Man -->
+  <url>
+    <loc>https://www.cekfilm.live/review/review-the-chestnut-man-netflix-serial-thriller-denmark-terbaik/</loc>
+    <lastmod>2025-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
 </urlset>
