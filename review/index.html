@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Film & Series Terbaik — CekFilm</title>
+<meta name="description" content="Kumpulan review film dan series terbaik di Netflix, Vidio, dan WeTV. Review jujur, rating lengkap, dan rekomendasi untuk penonton Indonesia.">
+<link rel="canonical" href="https://www.cekfilm.live/review/">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X715FGME3F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-X715FGME3F');
+</script>
+
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #181818;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0ece4;
+    --sub: #888070;
+    --muted: #4a4540;
+    --gold: #c9a84c;
+    --red: #e5341a;
+    --blue: #2060ff;
+    --green: #18a058;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Outfit', sans-serif; font-size: 16px;
+    line-height: 1.6; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 64px;
+    background: rgba(8,8,8,0.88); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--text); text-decoration: none; }
+  .logo em { color: var(--gold); font-style: italic; }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a { color: var(--sub); text-decoration: none; font-size: 13px; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 120px 48px 56px;
+    max-width: 1160px; margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 20px;
+  }
+  .eyebrow-line { width: 32px; height: 1px; background: var(--gold); }
+  .eyebrow-text { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+  .page-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 16px;
+  }
+  .page-title em { font-style: italic; color: var(--gold); }
+  .page-desc { font-size: 16px; color: var(--sub); font-weight: 300; max-width: 520px; line-height: 1.7; }
+
+  /* FILTER BAR */
+  .filter-bar {
+    max-width: 1160px; margin: 0 auto;
+    padding: 24px 48px;
+    display: flex; align-items: center; gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .filter-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-right: 6px; }
+  .filter-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 16px; border-radius: 4px;
+    font-size: 12px; font-weight: 500;
+    border: 1px solid var(--border); color: var(--sub);
+    background: transparent; cursor: pointer;
+    transition: all .2s; font-family: 'Outfit', sans-serif;
+    text-decoration: none;
+  }
+  .filter-btn:hover { border-color: var(--border2); color: var(--text); }
+  .filter-btn.active { background: var(--surface); border-color: var(--gold); color: var(--gold); }
+
+  /* MAIN LAYOUT */
+  .review-index {
+    max-width: 1160px; margin: 0 auto;
+    padding: 48px 48px 80px;
+    display: grid; grid-template-columns: 1fr 300px;
+    gap: 48px; align-items: start;
+  }
+
+  /* REVIEW LIST */
+  .review-list {}
+  .list-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .list-count { font-size: 13px; color: var(--muted); }
+
+  /* REVIEW CARD HORIZONTAL */
+  .review-card-h {
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: 20px; padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: opacity .2s;
+  }
+  .review-card-h:hover { opacity: 0.8; }
+  .review-card-h:first-child { padding-top: 0; }
+  .card-h-poster {
+    width: 140px; aspect-ratio: 2/3;
+    border-radius: 6px; overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative; flex-shrink: 0;
+  }
+  .card-h-poster-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .card-h-platform {
+    position: absolute; bottom: 8px; left: 8px;
+    font-size: 9px; font-weight: 700; padding: 3px 8px;
+    border-radius: 2px; letter-spacing: 0.5px;
+  }
+  .pp-red { background: var(--red); color: #fff; }
+  .pp-blue { background: var(--blue); color: #fff; }
+  .pp-green { background: var(--green); color: #fff; }
+  .card-h-info { display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 4px 0; }
+  .card-h-genres { display: flex; gap: 6px; flex-wrap: wrap; }
+  .genre-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 3px 8px; background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border); border-radius: 2px; color: var(--muted);
+  }
+  .card-h-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px; line-height: 1.15; letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .card-h-excerpt { font-size: 13px; color: var(--sub); line-height: 1.6; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-h-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .card-h-rating { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--gold); }
+  .card-h-date { font-size: 12px; color: var(--muted); }
+  .card-h-read { font-size: 12px; color: var(--sub); display: flex; align-items: center; gap: 4px; }
+
+  /* FEATURED CARD (first article) */
+  .review-card-featured {
+    display: block; text-decoration: none;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+    margin-bottom: 24px;
+    transition: border-color .25s, transform .2s;
+  }
+  .review-card-featured:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .featured-poster {
+    width: 100%; aspect-ratio: 21/9;
+    background: linear-gradient(135deg, #1a0f2e 0%, #0a0818 50%, #080808 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative;
+  }
+  .featured-badge {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--gold); color: #0a0800;
+    font-size: 10px; font-weight: 700; padding: 5px 12px;
+    border-radius: 3px; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .featured-platform {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--red); color: #fff;
+    font-size: 11px; font-weight: 700; padding: 5px 12px;
+    border-radius: 3px;
+  }
+  .featured-rating {
+    position: absolute; bottom: 16px; right: 16px;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    border: 1px solid rgba(201,168,76,0.3);
+    font-size: 13px; font-weight: 600; color: var(--gold);
+    padding: 5px 12px; border-radius: 4px;
+  }
+  .featured-body { padding: 24px 28px; }
+  .featured-genres { display: flex; gap: 6px; margin-bottom: 10px; }
+  .featured-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px; line-height: 1.1; letter-spacing: -0.5px;
+    color: var(--text); margin-bottom: 10px;
+  }
+  .featured-excerpt { font-size: 15px; color: var(--sub); line-height: 1.65; font-weight: 300; margin-bottom: 16px; }
+  .featured-meta { display: flex; align-items: center; gap: 16px; font-size: 12px; color: var(--muted); }
+
+  /* COMING SOON CARD */
+  .coming-soon-card {
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: 20px; padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0.4;
+  }
+  .cs-poster {
+    width: 140px; aspect-ratio: 2/3;
+    border-radius: 6px; background: var(--surface);
+    border: 1px dashed var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .cs-info { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .cs-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .cs-title { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--sub); }
+  .cs-sub { font-size: 13px; color: var(--muted); }
+
+  /* SIDEBAR */
+  .index-sidebar { position: sticky; top: 80px; }
+  .sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+  .sidebar-header { padding: 14px 18px; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .sidebar-body { padding: 16px 18px; }
+  .genre-list { display: flex; flex-direction: column; gap: 2px; }
+  .genre-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px; border-radius: 4px;
+    text-decoration: none; font-size: 13px; color: var(--sub);
+    transition: all .2s;
+  }
+  .genre-link:hover { background: var(--surface2); color: var(--text); }
+  .genre-link-left { display: flex; align-items: center; gap: 10px; }
+  .genre-count { font-size: 11px; color: var(--muted); }
+  .platform-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 10px; border-radius: 6px;
+    text-decoration: none; transition: background .2s;
+    margin-bottom: 4px;
+  }
+  .platform-link:last-child { margin-bottom: 0; }
+  .platform-link:hover { background: var(--surface2); }
+  .pl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .pl-name { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
+  .pl-arrow { font-size: 12px; color: var(--muted); }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-box { background: var(--surface2); border-radius: 6px; padding: 14px; text-align: center; }
+  .stat-num { font-family: 'Instrument Serif', serif; font-size: 28px; color: var(--gold); line-height: 1; }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-logo { font-family: 'Instrument Serif', serif; font-size: 18px; color: var(--text); text-decoration: none; }
+  .footer-logo em { color: var(--gold); font-style: italic; }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .2s; }
+  .footer-links a:hover { color: var(--sub); }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .page-header { padding: 100px 20px 40px; }
+    .filter-bar { padding: 16px 20px; }
+    .review-index { grid-template-columns: 1fr; padding: 32px 20px 60px; gap: 32px; }
+    .index-sidebar { position: static; }
+    .review-card-h { grid-template-columns: 100px 1fr; gap: 14px; }
+    .card-h-poster { width: 100px; }
+    footer { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Cek<em>Film</em></a>
+  <div class="nav-links">
+    <a href="/">Beranda</a>
+    <a href="/review" class="active">Review</a>
+    <a href="/genre">Genre</a>
+    <a href="/netflix">Netflix</a>
+    <a href="/vidio">Vidio</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-text">Semua Review</span>
+  </div>
+  <h1 class="page-title">Review Film & Series<br><em>Pilihan Editor</em></h1>
+  <p class="page-desc">Review jujur dari tim CekFilm — rating, sinopsis, pro/con, dan rekomendasi untuk membantu kamu memilih tontonan terbaik malam ini.</p>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <a href="/review" class="filter-btn active">Semua</a>
+  <a href="/review" class="filter-btn">Netflix</a>
+  <a href="/review" class="filter-btn">Vidio</a>
+  <a href="/review" class="filter-btn">WeTV</a>
+  <a href="/review" class="filter-btn">Thriller</a>
+  <a href="/review" class="filter-btn">Drama</a>
+  <a href="/review" class="filter-btn">Action</a>
+  <a href="/review" class="filter-btn">Horor</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="review-index">
+
+  <div class="review-list">
+
+    <div class="list-header">
+      <span class="list-count">Menampilkan 1 review</span>
+    </div>
+
+    <!-- FEATURED: THE CHESTNUT MAN -->
+    <a href="/review/review-the-chestnut-man-netflix-serial-thriller-denmark-terbaik/" class="review-card-featured">
+      <div class="featured-poster">
+        🌰
+        <div class="featured-badge">✦ Rekomendasi Editor</div>
+        <div class="featured-platform">Netflix</div>
+        <div class="featured-rating">★ 9.0 / 10</div>
+      </div>
+      <div class="featured-body">
+        <div class="featured-genres">
+          <span class="genre-tag">Crime</span>
+          <span class="genre-tag">Thriller</span>
+          <span class="genre-tag">Nordic Noir</span>
+          <span class="genre-tag">Denmark</span>
+          <span class="genre-tag">2021</span>
+        </div>
+        <div class="featured-title">The Chestnut Man: Serial Killer Denmark yang Bikin Susah Tidur</div>
+        <div class="featured-excerpt">Serial thriller Denmark terbaik di Netflix — 6 episode yang tidak bisa kamu tonton setengah-setengah. Misteri gelap, karakter kuat, twist yang tidak tertebak. Nordic Noir di level tertinggi.</div>
+        <div class="featured-meta">
+          <span>📅 Juni 2025</span>
+          <span>⏱ 8 menit baca</span>
+          <span>🌰 6 Episode · ~55 menit/ep</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- COMING SOON 1 -->
+    <div class="coming-soon-card">
+      <div class="cs-poster">🎬</div>
+      <div class="cs-info">
+        <div class="cs-label">Segera hadir</div>
+        <div class="cs-title">Review berikutnya dalam proses...</div>
+        <div class="cs-sub">Tim CekFilm sedang menonton dan menulis review untuk kamu</div>
+      </div>
+    </div>
+
+    <!-- COMING SOON 2 -->
+    <div class="coming-soon-card">
+      <div class="cs-poster">🎬</div>
+      <div class="cs-info">
+        <div class="cs-label">Segera hadir</div>
+        <div class="cs-title">Review berikutnya dalam proses...</div>
+        <div class="cs-sub">Pantau terus halaman ini untuk review terbaru</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="index-sidebar">
+
+    <!-- STATS -->
+    <div class="sidebar-card">
+      <div class="sidebar-header">CekFilm Stats</div>
+      <div class="sidebar-body">
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-num">1</div>
+            <div class="stat-label">Review</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Platform</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">9.0</div>
+            <div class="stat-label">Avg Rating</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Worth it</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GENRE -->
+    <div class="sidebar-card">
+      <div class="sidebar-header">Browse Genre</div>
+      <div class="sidebar-body">
+        <div class="genre-list">
+          <a href="/genre" class="genre-link"><div class="genre-link-left"><span>⚡</span> Action</div><span class="genre-count">–</span></a>
+          <a href="/genre" class="genre-link"><div class="genre-link-left"><span>🎭</span> Drama</div><span class="genre-count">–</span></a>
+          <a href="/genre" class="genre-link"><div class="genre-link-left"><span>👻</span> Horor</div><span class="genre-count">–</span></a>
+          <a href="/genre" class="genre-link"><div class="genre-link-left"><span>🔪</span> Thriller</div><span class="genre-count">1</span></a>
+          <a href="/genre" class="genre-link"><div class="genre-link-left"><span>😄</span> Komedi</div><span class="genre-count">–</span></a>
+          <a href="/genre" class="genre-link"><div class="genre-link-left"><span>💕</span> Romance</div><span class="genre-count">–</span></a>
+          <a href="/genre" class="genre-link"><div class="genre-link-left"><span>🇰🇷</span> Drama Korea</div><span class="genre-count">–</span></a>
+          <a href="/genre" class="genre-link"><div class="genre-link-left"><span>🇮🇩</span> Film Indo</div><span class="genre-count">–</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLATFORM -->
+    <div class="sidebar-card">
+      <div class="sidebar-header">Tonton di Platform</div>
+      <div class="sidebar-body">
+        <a href="/netflix" class="platform-link">
+          <div class="pl-dot" style="background:var(--red)"></div>
+          <span class="pl-name">Netflix — Gratis 30 hari</span>
+          <span class="pl-arrow">→</span>
+        </a>
+        <a href="/vidio" class="platform-link">
+          <div class="pl-dot" style="background:var(--blue)"></div>
+          <span class="pl-name">Vidio — Premium</span>
+          <span class="pl-arrow">→</span>
+        </a>
+        <a href="/review" class="platform-link">
+          <div class="pl-dot" style="background:var(--green)"></div>
+          <span class="pl-name">WeTV — Premium</span>
+          <span class="pl-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<footer>
+  <a href="/" class="footer-logo">Cek<em>Film</em></a>
+  <div class="footer-links">
+    <a href="/review">Review</a>
+    <a href="/genre">Genre</a>
+    <a href="/netflix">Netflix</a>
+    <a href="/vidio">Vidio</a>
+    <a href="/disclaimer">Disclaimer</a>
+  </div>
+</footer>
+
+</body>
+</html>
